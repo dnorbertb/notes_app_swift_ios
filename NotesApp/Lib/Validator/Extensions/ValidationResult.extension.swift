@@ -10,7 +10,7 @@ extension ValidationResult {
         switch (lhs, rhs) {
         case (.success, .success):
             return true
-        case (.failure(let lhsMessage), .failure(let rhsMessage)):
+        case (.failure, .failure):
             return true
         default:
             return false
