@@ -4,19 +4,30 @@
 //
 //  Created by Norbert Bednarczyk on 13/04/2025.
 //
-
 import SwiftUI
 
 struct StyledTextField: View {
     @Binding var text: String
+    @Binding var error: String?
     @FocusState var isFocused: Bool
     @Environment(\.colorScheme) var colorScheme
     var placeholder: String?
     var isSecure: Bool = false
-    var isError: Bool = false
+    
+    init(
+        text: Binding<String>,
+        error: Binding<String?> = .constant(nil),
+        placeholder: String? = nil,
+        isSecure: Bool = false
+    ) {
+        self._text = text
+        self._error = error
+        self.placeholder = placeholder
+        self.isSecure = isSecure
+    }
     
     private var borderColor: Color {
-        if(isError) {
+        if(error != nil) {
             return .red
         }
         
@@ -58,17 +69,27 @@ struct StyledTextField: View {
         )
         .cornerRadius(10)
         .focused($isFocused)
+        .onChange(of: isFocused) { newValue in
+            if newValue {
+                error = nil
+            }
+        }
         .onTapGesture {
-            isFocused.toggle()
+            isFocused = true
+        }
+        
+        if let error {
+            ErrorCaption(message: error)
         }
     }
 }
 
 private struct StyledTextFieldPreviewWrapper: View {
     @State private var text: String = "Hello"
+    @State private var error: String? = "Test error"
     
     var body: some View {
-        StyledTextField(text: $text)
+        StyledTextField(text: $text, error: $error)
             .padding()
     } 
 }
