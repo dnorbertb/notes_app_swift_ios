@@ -4,37 +4,29 @@
 //
 //  Created by Norbert Bednarczyk on 13/04/2025.
 //
-
 import SwiftUI
 
 struct AuthViewForm: View {
-    @State private var action: AuthActions = .login
+    @State var action: AuthActions = .login
     @EnvironmentObject var authManager: AuthManager
-    @State var validationResult: ValidationResult?
+    @State var formErrors: [String: [String]] = [:]
     
-    private func loginHandler() async -> Void {
-        let validator = Validator(
-            [
-                authManager.email,
-                authManager.password
-            ],
-            [
-                [isEmail(nil)],
-                []
-            ]
-        )
-        let (hasError, results) = validator.validate()
-        validationResult = results.first?.first
+    private func submitHandler() async -> Void {
+        let rules = getValidationRules()
+        let validator = Validator(rules)
+        let (hasError, errors) = validator.validate()
+        formErrors = errors
         
         if (hasError) {
             return
         }
         
-        await authManager.login()
-    }
-    
-    private func registerHandler() async -> Void {
-        
+        if (action == .login) {
+            await authManager.login()
+        } else {
+            await authManager.register()
+        }
+
     }
     
     var body: some View {
@@ -42,7 +34,8 @@ struct AuthViewForm: View {
             
             if(action == .register) {
                 StyledTextField(
-                    text: $authManager.email,
+                    text: $authManager.userName,
+                    error: createErrorBinding(for: "name"),
                     placeholder: "name"
                 )
                 .autocorrectionDisabled(true)
@@ -51,6 +44,7 @@ struct AuthViewForm: View {
             
             StyledTextField(
                 text: $authManager.email,
+                error: createErrorBinding(for: "email"),
                 placeholder: "email"
             )
             .autocorrectionDisabled(true)
@@ -59,6 +53,7 @@ struct AuthViewForm: View {
             
             StyledTextField(
                 text: $authManager.password,
+                error: createErrorBinding(for: "password"),
                 placeholder: "password",
                 isSecure: true
             )
@@ -70,11 +65,6 @@ struct AuthViewForm: View {
                 ErrorCaption(message: authManager.error)
             }
             
-            if let validationResult,
-               case .failure(let message) = validationResult {
-                ErrorCaption(message: message ?? "Wystąpił błąd")
-            }
-            
             Spacer().frame(height: 5)
             
             StyledButton(
@@ -83,9 +73,7 @@ struct AuthViewForm: View {
                 : "register",
                 action: {
                     Task {
-                        await action == .login
-                        ? loginHandler()
-                        : registerHandler()
+                        await submitHandler()
                     }
                 }
             ).disabled(authManager.state == .loading)

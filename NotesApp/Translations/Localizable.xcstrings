@@ -29,7 +29,7 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Gotowe"
           }
         }
@@ -155,6 +155,23 @@
         }
       }
     },
+    "is-strong-password-error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password is not strong enough"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hasło nie jest wystarczająco silne"
+          }
+        }
+      }
+    },
     "login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -190,7 +207,14 @@
       }
     },
     "notes app" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "notes app"
+          }
+        }
+      }
     },
     "password" : {
       "extractionState" : "manual",
@@ -295,7 +319,15 @@
       }
     },
     "Yolojhdjkwahdjkawh" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dwadwa"
+          }
+        }
+      },
+      "shouldTranslate" : false
     }
   },
   "version" : "1.0"
