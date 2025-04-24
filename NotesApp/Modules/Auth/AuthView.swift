@@ -17,5 +17,7 @@ struct AuthView: View {
 }
 
 #Preview {
-    AuthView().environmentObject(AuthManager())
+    AuthView().environmentObject(
+        AuthManager()
+    )
 }

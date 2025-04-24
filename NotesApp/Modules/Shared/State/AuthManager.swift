@@ -16,8 +16,8 @@ enum AuthState: String {
 }
 
 class AuthManager: ObservableObject {
-    private let authApi = AuthApi()
-    private let keychain = KeychainSwift()
+    private let authApi: AuthApi
+    private let keychain: KeychainSwift
     private let bundleId = Bundle.main.bundleIdentifier ?? "defualt";
     @Published var state: AuthState = .loggedOut
     @Published var userName: String = ""
@@ -49,7 +49,9 @@ class AuthManager: ObservableObject {
         keychain.delete("\(bundleId).authToken")
     }
     
-    init() {
+    init(authApi: AuthApi = AuthApi(), keychain: KeychainSwift = KeychainSwift()) {
+        self.authApi = authApi
+        self.keychain = keychain
         verifyUser()
     }
     

@@ -20,5 +20,7 @@ struct AppView: View {
 }
 
 #Preview {
-    AppView().environmentObject(AuthManager())
+    AppView().environmentObject(
+        AuthManager()
+    )
 }

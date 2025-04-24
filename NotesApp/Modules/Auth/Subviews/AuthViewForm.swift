@@ -99,6 +99,8 @@ struct AuthViewForm: View {
 
 
 #Preview {
-    AuthViewForm().environmentObject(AuthManager())
+    AuthViewForm().environmentObject(
+        AuthManager()
+    )
 }
 

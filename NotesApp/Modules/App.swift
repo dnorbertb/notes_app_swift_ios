@@ -13,7 +13,9 @@ struct NotesApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                AppView().environmentObject(AuthManager())
+                AppView().environmentObject(
+                    AuthManager()
+                )
             }
         }
     }
