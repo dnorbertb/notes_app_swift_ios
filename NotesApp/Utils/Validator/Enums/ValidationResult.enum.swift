@@ -7,5 +7,5 @@
 
 enum ValidationResult {
     case success
-    case failure(String?)
+    case failure(String)
 }

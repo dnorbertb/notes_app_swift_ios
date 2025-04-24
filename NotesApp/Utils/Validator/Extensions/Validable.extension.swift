@@ -6,17 +6,15 @@
 //
 
 extension Validable {
-    func validate () -> (hasError: Bool, results: [[ValidationResult]]) {
-        let results = data.enumerated().map {index, data in
-            let validators: [ValidatorFunction] = self.validations[index]
-            let results = validators.map {validator in validator(data)}
-            return results
+    func validate () -> (hasError: Bool, errors: [String: [String]]) {
+        let rulesResults = rules.map { rule in
+            (rule.name, rule.validate())
         }
+        let hasError = rulesResults
+            .flatMap({ $1 })
+            .count > 0
         
-        let hasError = results
-            .joined()
-            .contains(where: { $0 == .failure(nil) })
-        
-        return (hasError: hasError, results: results)
+        let errors = Dictionary(uniqueKeysWithValues: rulesResults)
+        return (hasError: hasError, errors: errors)
     }
 }

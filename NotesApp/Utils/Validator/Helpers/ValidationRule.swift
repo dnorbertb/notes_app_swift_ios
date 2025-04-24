@@ -6,6 +6,7 @@
 //
 
 struct ValidationRule {
+    let name: String
     let data: Sendable
     let validators: [ValidatorFunction]
 }

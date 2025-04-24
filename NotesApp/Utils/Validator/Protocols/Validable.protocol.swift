@@ -6,7 +6,6 @@
 //
 
 protocol Validable  {
-    var data: [Sendable] { get }
-    var validations: [[ValidatorFunction]] { get }
-    func validate () -> (hasError: Bool, results: [[ValidationResult]])
+    var rules: [ValidationRule] { get }
+    func validate () -> (hasError: Bool, errors: [String: [String]])
 }
