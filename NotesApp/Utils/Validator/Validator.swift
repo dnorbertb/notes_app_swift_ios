@@ -5,12 +5,10 @@
 //  Created by Norbert Bednarczyk on 16/04/2025.
 //
 
-struct Validator: Sendable,Validable {
-    var data: [Sendable]
-    var validations: [[ValidatorFunction]]
+struct Validator: Sendable, Validable {
+    let rules: [ValidationRule]
     
-    init(_ data: [Sendable], _ validations: [[ValidatorFunction]]) {
-        self.data = data
-        self.validations = validations
+    init(_ rules: [ValidationRule]) {
+        self.rules = rules
     }
 }
