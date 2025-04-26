@@ -1,5 +1,5 @@
 //
-//  ApiCallResult.enum.swift
+//  ApiCallResult.swift
 //  NotesApp
 //
 //  Created by Norbert Bednarczyk on 11/04/2025.
