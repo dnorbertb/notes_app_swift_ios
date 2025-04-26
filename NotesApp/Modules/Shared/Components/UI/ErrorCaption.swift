@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ErrorCaption: View {
-    // Need to check pros and cons of leaving this without @Binding
-    var message: String
+    @Binding var message: String
     
     var body: some View {
         Text(LocalizedStringKey(message))
@@ -22,7 +21,7 @@ private struct ErrorCaptionPreview: View {
     @State private var message = "Hello, World!"
     
     var body: some View {
-        ErrorCaption(message: message)
+        ErrorCaption(message: $message)
             .padding(10)
     }
 }

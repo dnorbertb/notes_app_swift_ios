@@ -78,8 +78,8 @@ struct StyledTextField: View {
             isFocused = true
         }
         
-        if let error {
-            ErrorCaption(message: error)
+        if let error = $error.wrappedValue {
+            ErrorCaption(message: Binding(get: { error }, set: { _ in }))
         }
     }
 }
@@ -91,7 +91,7 @@ private struct StyledTextFieldPreviewWrapper: View {
     var body: some View {
         StyledTextField(text: $text, error: $error)
             .padding()
-    } 
+    }
 }
 
 #Preview {

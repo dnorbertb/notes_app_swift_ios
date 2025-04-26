@@ -62,7 +62,7 @@ struct AuthViewForm: View {
             .disabled(authManager.state == .loading)
             
             if (authManager.state == .error) {
-                ErrorCaption(message: authManager.error)
+                ErrorCaption(message: $authManager.error)
             }
             
             Spacer().frame(height: 5)
