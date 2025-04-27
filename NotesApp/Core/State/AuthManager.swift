@@ -20,7 +20,7 @@ class AuthManager: ObservableObject {
     private let authApi: AuthApi
     private let keychain: KeychainSwift
     private let authTokenName = "\(Bundle.main.bundleIdentifier ?? "defualt").authToken"
-    @Published var state: AuthState = .loggedOut
+    @Published private(set) var state: AuthState = .loggedOut
     @Published var userName: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
@@ -31,7 +31,7 @@ class AuthManager: ObservableObject {
         400: "incorrect-values",
         401: "invalid-credentials",
         404: "user-not-found",
-        409: "user-already-exists",
+        409: "user-already-exist",
         500: "server-error"
     ]
     
