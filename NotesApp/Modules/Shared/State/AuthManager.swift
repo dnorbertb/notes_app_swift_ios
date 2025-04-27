@@ -15,10 +15,11 @@ enum AuthState: String {
     case error
 }
 
+@MainActor // TODO: Check other possibilities
 class AuthManager: ObservableObject {
     private let authApi: AuthApi
     private let keychain: KeychainSwift
-    private let bundleId = Bundle.main.bundleIdentifier ?? "defualt";
+    private let authTokenName = "\(Bundle.main.bundleIdentifier ?? "defualt").authToken"
     @Published var state: AuthState = .loggedOut
     @Published var userName: String = ""
     @Published var email: String = ""
@@ -34,19 +35,17 @@ class AuthManager: ObservableObject {
         500: "server-error"
     ]
     
-    // TODO: Fix bug causing login state to persist in some cases
-    
     private func saveAuthToken(_ token: String) {
-        keychain.set(token, forKey: "\(bundleId).authToken")
+        keychain.set(token, forKey: authTokenName)
     }
     
     private func getAuthToken() -> String? {
-        let token = keychain.get("\(bundleId).authToken")
+        let token = keychain.get(authTokenName)
         return token
     }
     
     private func removeToken() {
-        keychain.delete("\(bundleId).authToken")
+        keychain.delete(authTokenName)
     }
     
     init(authApi: AuthApi = AuthApi(), keychain: KeychainSwift = KeychainSwift()) {
