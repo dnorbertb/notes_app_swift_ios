@@ -318,17 +318,6 @@
         }
       }
     },
-    "Yolojhdjkwahdjkawh" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "dwadwa"
-          }
-        }
-      },
-      "shouldTranslate" : false
-    }
   },
   "version" : "1.0"
 }
