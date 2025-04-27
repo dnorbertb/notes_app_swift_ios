@@ -172,6 +172,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "login" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -331,6 +334,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Użytkownik z tym adresem email nie istnieje!"
+          }
+        }
+      }
+    },
+    "you-will-be-logged-out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will be logged out"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zostaniesz wylogowany"
           }
         }
       }
