@@ -20,7 +20,7 @@ struct AddNoteButton: View {
                     systemName: "square.and.pencil"
                 )
                 .resizable()
-                .frame(width: 28, height: 28)
+                .frame(width: 20, height: 20)
                 .foregroundStyle(.white)
             }
         )

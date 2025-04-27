@@ -28,7 +28,7 @@ struct HomeTopBar: View {
             } label: {
                 Text(editMode ? "done" : "edit")
             }
-        }
+        }.frame(alignment: .top)
     }
 }
 

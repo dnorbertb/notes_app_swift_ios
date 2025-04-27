@@ -12,16 +12,11 @@ import SwiftUI
 struct NotesApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                AppView().environmentObject(
-                    AuthManager()
+            EnvironmentProvider(
+                NavigationProvider(
+                    AppView()
                 )
-            }
+            )
         }
     }
-}
-
-
-
-#Preview {
 }

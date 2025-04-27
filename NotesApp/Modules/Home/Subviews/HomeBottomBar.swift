@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct HomeBottomBar: View {
+    @EnvironmentObject private var router: Router
+    
     var body: some View {
         HStack {
-            
             Button(
                 action: {
-                    print("Settings")
+                    router.navigate(to: .settings)
                 },
                 label: {
                     Image(
                         systemName: "gearshape.fill"
                     )
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .frame(width: 32, height: 32)
                 }
             )
             
@@ -29,10 +30,11 @@ struct HomeBottomBar: View {
             AddNoteButton {
                 print("New note")
             }
-        }
+        }.frame(alignment: .bottom)
     }
 }
 
 #Preview {
     HomeBottomBar()
+        .environmentObject(Router())
 }
