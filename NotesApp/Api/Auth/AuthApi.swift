@@ -57,9 +57,19 @@ class AuthApi: Fetchable {
         return response
     }
     
-    func fetchUser() {
-        // This should fetch user data based on the auth token
-        // Should return user data or nil
+    func fetchUser(_ token: String) async -> ApiCallResult<AuthResponseBody> {
+        let response: ApiCallResult<AuthResponseBody> = await self.fetch(
+            endpoint: "/auth/me",
+            headers: ["Authorization" : token]
+        ) { data, response in
+            if (response.statusCode != 200) {
+                return .failure(response.statusCode)
+            }
+            let decodedBody = try JSONDecoder().decode(AuthResponseBody.self, from: data)
+            return .success(decodedBody)
+        }
+        
+        return response
+        
     }
-    
 }
