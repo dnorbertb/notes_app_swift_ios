@@ -12,7 +12,7 @@ extension Fetchable {
         endpoint: String,
         method: String = "GET",
         headers: [String: String] = [:],
-        body: RequestBody? = nil,
+        body: RequestBody = EmptyBody(),
         extractFunction: (_ body: Data, _ response: HTTPURLResponse) throws -> ApiCallResult<RequestResponse>,
     ) async -> ApiCallResult<RequestResponse> {
         do {
@@ -24,7 +24,7 @@ extension Fetchable {
             headers.forEach { key, value in
                 request.setValue(value, forHTTPHeaderField: key)
             }
-            request.httpBody = body != nil ? try JSONEncoder().encode(body) : nil
+            request.httpBody = body is EmptyBody ? nil : try JSONEncoder().encode(body)
             let response = try await URLSession.shared.data(for: request)
             let (responseBody, responseData) = response
             let callResult = try extractFunction(responseBody, responseData as! HTTPURLResponse)
