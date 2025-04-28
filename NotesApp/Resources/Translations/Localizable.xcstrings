@@ -172,8 +172,21 @@
         }
       }
     },
-    "Key" : {
-      "extractionState" : "manual"
+    "logged-in-as %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logged in as %1$@, %2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zalogowano jako %@, %@"
+          }
+        }
+      }
     },
     "login" : {
       "extractionState" : "manual",

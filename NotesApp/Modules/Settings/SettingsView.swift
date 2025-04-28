@@ -14,8 +14,16 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
-            // TODO: Logged in as ....
+            HStack {
+                Text("logged-in-as \(authManager.userName), \(authManager.email)")
+                    .foregroundStyle(.secondary)
+            }.frame(
+                maxWidth: .infinity,
+                alignment: .leading,
+            ).padding(.top, 16)
+            
             Spacer()
+            
             Button(
                 action: {
                     showDialog.toggle()
