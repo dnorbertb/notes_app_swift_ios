@@ -51,7 +51,10 @@ class AuthManager: ObservableObject {
     init(authApi: AuthApi = AuthApi(), keychain: KeychainSwift = KeychainSwift()) {
         self.authApi = authApi
         self.keychain = keychain
-        verifyUser()
+        
+        Task {
+           await verifyUser()
+        }
     }
     
     func login() async {
@@ -95,16 +98,29 @@ class AuthManager: ObservableObject {
         self.state = .loggedOut
     }
     
-    func verifyUser() {
+    func verifyUser() async {
         // This is demo app and i will not include any complicated logic here
         // But in real case there would be probably also a refresh token
         // This func should check if there is a token, if it should be refreshed etc
         // Maybe verify if token is valid by calling authApi.fetchUser etc.
         // And in general care about token to be valid all the time user uses the app
-        if let _ = getAuthToken() {
-            self.state = .loggedIn
-        } else {
+        guard let token = getAuthToken() else {
             self.state = .loggedOut
+            return
+        }
+        state = .loggedIn
+        
+        let userData = await authApi.fetchUser(token)
+        
+        if case .failure = userData {
+            removeToken()
+            state = .loggedOut
+            return
+        }
+        
+        if case .success(let user) = userData {
+            email = user.data.email
+            userName = user.data.name
         }
     }
 }
